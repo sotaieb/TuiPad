@@ -96,7 +96,7 @@ namespace TuiPad.Tests
 
         [Fact]
         public void ReverseText() {
-            var encrypted = ">egassem/<.olleh>egassem<";
+            var encrypted = @"{  'message': 'Hello'}";
 
             var decrypted = new String(encrypted.Reverse().ToArray());
             _output.WriteLine(decrypted);
@@ -139,6 +139,20 @@ namespace TuiPad.Tests
 
             _output.WriteLine(result);
         }
+
+        [Fact]
+        public void Read_Encrypted_File_Json()
+        {
+            var reader = new EncryptedFileReaderOption(new JsonFileReader(), "Reverse");
+            var result = reader.Read($"{_currentPath}\\encryptedjsonfile.json");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            _output.WriteLine(result);
+        }
+
+
 
     }
 }
