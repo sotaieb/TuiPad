@@ -42,5 +42,17 @@ namespace TuiPad.Tests
 
             _output.WriteLine(result);
         }
+
+        [Fact]
+        public void Read_Encrypted_File_Text()
+        {
+            var reader = new EncryptedFileReaderOption(new TextFileReader(), "Reverse");
+            var result = reader.Read($"{_currentPath}\\encryptedtextfile.txt");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            _output.WriteLine(result);
+        }
     }
 }
