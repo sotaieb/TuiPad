@@ -30,5 +30,17 @@ namespace TuiPad.Tests
 
             _output.WriteLine(result);
         }
+
+        [Fact]
+        public void Read_Xml_File_Text()
+        {
+            var reader = new XmlFileReader();
+            var result = reader.Read($"{_currentPath}\\xmlfile.xml");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            _output.WriteLine(result);
+        }
     }
 }
