@@ -30,8 +30,13 @@ namespace TuiPad.Business
             if (EncryptionAlgorythm.Equals("Reverse"))
             {
                 var decrypted = new String(encrypted.Reverse().ToArray());
-                var xml = XDocument.Parse(decrypted);
-                return xml.ToString();
+                if (FileReader is XmlFileReader)
+                {
+                    var xml = XDocument.Parse(decrypted);
+                    decrypted = xml.ToString();
+                }
+                return decrypted;
+                
             }
 
             throw new Exception("Invalid encryption algorithm.");

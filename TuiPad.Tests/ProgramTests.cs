@@ -102,5 +102,31 @@ namespace TuiPad.Tests
             _output.WriteLine(decrypted);
         }
 
+        [Fact]
+        public void Read_Text_File_With_Admin_Security_Context()
+        {
+            var identity = new Identity("admin");
+            var principal = new Principal(identity);
+
+            var reader = new SecureFileReaderOption(new TextFileReader(), principal);
+            var result = reader.Read($"{_currentPath}\\textfile.txt");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            _output.WriteLine(result);
+        }
+
+        [Fact]
+        public void Read_Text_File_With_User_Security_Context_Throws_Exception()
+        {
+            var identity = new Identity("user");
+            var principal = new Principal(identity);
+
+            var reader = new SecureFileReaderOption(new TextFileReader(), principal);
+
+            Assert.Throws<Exception>(() => reader.Read($"{_currentPath}\\textfile.txt"));
+        }
+
     }
 }
