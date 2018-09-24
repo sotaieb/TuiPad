@@ -152,7 +152,64 @@ namespace TuiPad.Tests
             _output.WriteLine(result);
         }
 
+        [Fact]
+        public void Read_Json_File_With_Admin_Security_Context()
+        {
+            var identity = new Identity("admin");
+            var principal = new Principal(identity);
 
+            var reader = new SecureFileReaderOption(new JsonFileReader(), principal);
+            var result = reader.Read($"{_currentPath}\\jsonfile.json");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            _output.WriteLine(result);
+        }
+
+        [Fact]
+        public void Read_Json_File_With_User_Security_Context_Throws_Exception()
+        {
+            var identity = new Identity("user");
+            var principal = new Principal(identity);
+
+            var reader = new SecureFileReaderOption(new JsonFileReader(), principal);
+
+            Assert.Throws<Exception>(() => reader.Read($"{_currentPath}\\jsonfile.json"));
+        }
+
+
+        [Fact]
+        public void Build_TextFileReader_With_Encryption_And_Security_Test()
+        {
+            var identity = new Identity("admin");
+            var principal = new Principal(identity);
+
+            var reader = new TextFileReader();
+
+            var builder = new FileReaderBuilder(reader);
+            builder.WithEncryption("Reverse");
+            builder.WithSecurity(principal);
+
+            var content = builder.Build().Read($"{_currentPath}\\encryptedtextfile.txt");
+            _output.WriteLine(content);
+        }
+
+        [Fact]
+        public void Build_JsonFileReader_With_Encryption_And_Security_Test()
+        {
+            var identity = new Identity("admin");
+            var principal = new Principal(identity);
+
+            var reader = new JsonFileReader();
+
+            var builder = new FileReaderBuilder(reader);
+            builder.WithEncryption("Reverse");
+            builder.WithSecurity(principal);
+
+            var content = builder.Build().Read($"{_currentPath}\\encryptedjsonfile.json");
+            _output.WriteLine(content);
+        }
 
     }
 }
