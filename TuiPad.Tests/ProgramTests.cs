@@ -128,5 +128,17 @@ namespace TuiPad.Tests
             Assert.Throws<Exception>(() => reader.Read($"{_currentPath}\\textfile.txt"));
         }
 
+        [Fact]
+        public void Read_Json_File()
+        {
+            var reader = new JsonFileReader();
+            var result = reader.Read($"{_currentPath}\\jsonfile.json");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            _output.WriteLine(result);
+        }
+
     }
 }
