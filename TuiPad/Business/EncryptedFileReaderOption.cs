@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace TuiPad.Business
 {
@@ -14,12 +16,22 @@ namespace TuiPad.Business
 
         public override string Read(string path)
         {
-            var encrypted = base.Read(path);
+            if (string.IsNullOrEmpty(path))
+                return null;
 
+            if (!File.Exists(path))
+                return null;
+
+            // when file is encrypted, read file as text file
+            // then decrypt content
+            // then parse decrypted content
+            var encrypted = File.ReadAllText(path);
+                
             if (EncryptionAlgorythm.Equals("Reverse"))
             {
                 var decrypted = new String(encrypted.Reverse().ToArray());
-                return decrypted;
+                var xml = XDocument.Parse(decrypted);
+                return xml.ToString();
             }
 
             throw new Exception("Invalid encryption algorithm.");

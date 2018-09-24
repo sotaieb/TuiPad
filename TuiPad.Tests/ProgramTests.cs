@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using TuiPad.Business;
 using Xunit;
@@ -80,5 +81,26 @@ namespace TuiPad.Tests
             
             Assert.Throws<Exception>(() => reader.Read($"{_currentPath}\\xmlfile.xml"));
         }
+
+        [Fact]
+        public void Read_Encrypted_File_Xml()
+        {
+            var reader = new EncryptedFileReaderOption(new XmlFileReader(), "Reverse");
+            var result = reader.Read($"{_currentPath}\\encryptedxmlfile.xml");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            _output.WriteLine(result);
+        }
+
+        [Fact]
+        public void ReverseText() {
+            var encrypted = ">egassem/<.olleh>egassem<";
+
+            var decrypted = new String(encrypted.Reverse().ToArray());
+            _output.WriteLine(decrypted);
+        }
+
     }
 }
