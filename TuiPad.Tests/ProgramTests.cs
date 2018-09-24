@@ -86,7 +86,7 @@ namespace TuiPad.Tests
         public void Read_Encrypted_File_Xml()
         {
             var reader = new EncryptedFileReaderOption(new XmlFileReader(), "Reverse");
-            var result = reader.Read($"{_currentPath}\\encryptedxmlfile.xml");
+            var result = reader.Read($"{_currentPath}\\encryptedxmlfile.txt");
 
             Assert.NotNull(result);
             Assert.NotEmpty(result);
@@ -208,6 +208,22 @@ namespace TuiPad.Tests
             builder.WithSecurity(principal);
 
             var content = builder.Build().Read($"{_currentPath}\\encryptedjsonfile.json");
+            _output.WriteLine(content);
+        }
+
+        [Fact]
+        public void Build_Xml_FileReader_With_Encryption_And_Security_Test()
+        {
+            var identity = new Identity("admin");
+            var principal = new Principal(identity);
+
+            var reader = new XmlFileReader();
+
+            var builder = new FileReaderBuilder(reader);
+            builder.WithEncryption("Reverse");
+            builder.WithSecurity(principal);
+
+            var content = builder.Build().Read($"{_currentPath}\\encryptedxmlfile.txt");
             _output.WriteLine(content);
         }
 

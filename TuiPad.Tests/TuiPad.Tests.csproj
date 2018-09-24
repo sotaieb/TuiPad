@@ -23,7 +23,7 @@
     <None Update="encryptedtextfile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="encryptedxmlfile.xml">
+    <None Update="encryptedxmlfile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="jsonfile.json">

@@ -27,7 +27,7 @@ namespace TuiPad.Business
             // then parse decrypted content
             var encrypted = File.ReadAllText(path);
                 
-            if (EncryptionAlgorythm.Equals("Reverse"))
+            if (EncryptionAlgorythm.ToLower().Equals("reverse"))
             {
                 var decrypted = new String(encrypted.Reverse().ToArray());
                 if (FileReader is XmlFileReader)
