@@ -54,5 +54,31 @@ namespace TuiPad.Tests
 
             _output.WriteLine(result);
         }
+
+        [Fact]
+        public void Read_Xml_File_With_Admin_Security_Context()
+        {
+            var identity = new Identity("admin");
+            var principal = new Principal(identity);
+
+            var reader = new SecureFileReaderOption(new XmlFileReader(), principal);
+            var result = reader.Read($"{_currentPath}\\xmlfile.xml");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            _output.WriteLine(result);
+        }
+
+        [Fact]
+        public void Read_Xml_File_With_User_Security_Context_Throws_Exception()
+        {
+            var identity = new Identity("user");
+            var principal = new Principal(identity);
+
+            var reader = new SecureFileReaderOption(new XmlFileReader(), principal);
+            
+            Assert.Throws<Exception>(() => reader.Read($"{_currentPath}\\xmlfile.xml"));
+        }
     }
 }
