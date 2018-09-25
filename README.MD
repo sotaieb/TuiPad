@@ -1,8 +1,9 @@
 
 # Explore Patterns : File Reader Example
 
-## Status
+## Status :
 ![Build Status](https://dev.azure.com/sxtaieb/TuiPad/_apis/build/status/sotaieb.TuiPad)
+[![Build status](https://ci.appveyor.com/api/projects/status/2y08pm7bvhgb860s?svg=true)](https://ci.appveyor.com/project/sotaieb/tuipad)
 
 ## Building :
 
