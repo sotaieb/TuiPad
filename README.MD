@@ -1,6 +1,9 @@
 
 # Explore Patterns : File Reader Example
 
+## Status
+![Build Status](https://dev.azure.com/sxtaieb/TuiPad/_apis/build/status/sotaieb.TuiPad)
+
 ## Building :
 
 -  Visual Studio 2017 : v15.8.5
